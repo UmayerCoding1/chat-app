@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import  { Schema, model} from "mongoose";
 
 const conversationSchema = new Schema({
   paticipants: [
@@ -15,5 +15,4 @@ const conversationSchema = new Schema({
   ],
 },{timestamps: true});
 
-export const Conversation =
-  models?.Conversation || model("Conversation", conversationSchema);
+export const Conversation = model("Conversation", conversationSchema);

@@ -16,8 +16,10 @@ app.use(cookieParser());
 connectDb(process.env.MONGODB_URL);
 
 import authRoute from "./routes/auth.route.js";
+import messageRoute from "./routes/message.route.js";
 
 app.use("/api/auth", authRoute);
+app.use("/api/message", messageRoute);
 
 app.listen(port, () => {
   console.log(`Server listes PORT: ${port}`);

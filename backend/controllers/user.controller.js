@@ -52,8 +52,6 @@ export const userRegister = async (req, res) => {
 
 export const userLogin = async (req, res) => {
   try {
-    console.log(req.body);
-
     const { email, password } = req.body;
     if (!email || !password) {
       return res.status(400).json({ message: "All fields are required" });
@@ -83,7 +81,7 @@ export const userLogin = async (req, res) => {
     return res
       .status(200)
       .cookie("chatAppToken", token)
-      .json({ message: "User logged in successfully" });
+      .json({ message: "User logged in successfully", user });
   } catch (error) {
     console.log(error);
   }
