@@ -42,7 +42,7 @@ export const userRegister = async (req, res) => {
       avatar: gender === "male" ? mailProfile : femailProfile,
     });
 
-    return res.status(201).json({ message: "User created successfully" });
+    return res.status(201).json({ message: "User created successfully" , success: true});
   } catch (error) {
     console.log("User create error", error);
 
