@@ -2,23 +2,25 @@ import React from "react";
 import { Link, useNavigate } from "react-router";
 import { POSTAPI } from "../service/api";
 import { toast } from "sonner";
-
+import { useDispatch } from 'react-redux'
+import { setUser } from "../redux/userSlice";
 const SignIn = () => {
-  const [user, setUser] = React.useState({
+  const [userData, setUserData] = React.useState({
     email: "",
     password: "",
   });
-
+  const displach = useDispatch();
   const navigate = useNavigate();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    console.log(user);
+    console.log(userData);
     try {
-      const response = await POSTAPI("/auth/login", user);
+      const response = await POSTAPI("/auth/login", userData);
       console.log(response);
       if (response.user) {
         console.log(response);
+        displach(setUser(response.user));
         toast.success(response.message, {
           duration: 1000,
         });
@@ -29,7 +31,7 @@ const SignIn = () => {
       toast.error("Something went wrong", { duration: 1000 });
     }
 
-    setUser({
+    setUserData({
       email: "",
       password: "",
     });
@@ -49,8 +51,8 @@ const SignIn = () => {
               className="input input-bordered w-full  h-10"
               type="email"
               name="email"
-              value={user.email}
-              onChange={(e) => setUser({ ...user, email: e.target.value })}
+              value={userData.email}
+              onChange={(e) => setUserData({ ...userData, email: e.target.value })}
               placeholder="Email"
             />
           </div>
@@ -64,8 +66,8 @@ const SignIn = () => {
               className="input input-bordered w-full  h-10"
               type="password"
               name="password"
-              value={user.password}
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
+              value={userData.password}
+              onChange={(e) => setUserData({ ...userData, password: e.target.value })}
               placeholder="Password"
             />
           </div>

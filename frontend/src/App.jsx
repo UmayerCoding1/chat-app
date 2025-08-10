@@ -4,6 +4,7 @@ import HomePage from './components/HomePage';
 import Signup from './components/Signup';
 import SignIn from './components/SignIn';
 import { Toaster } from 'sonner';
+
 const router = createBrowserRouter([
   {
     path: "/",
