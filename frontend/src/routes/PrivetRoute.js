@@ -7,7 +7,7 @@ const PrivetRoute = ({children}) => {
     // const user = useSelector(state => state.authR.user);
    
     // if (!user) {
-    //    return window.location.href = "/signin";
+    //    return window.location
     // }
     return children;
 };

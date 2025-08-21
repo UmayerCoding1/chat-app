@@ -87,12 +87,32 @@ export const userLogin = async (req, res) => {
   }
 };
 
+
+
 export const logout = async (req, res) => {
   try {
     res.clearCookie("chatAppToken");
     return res.status(200).json({ message: "User logged out successfully" });
   } catch (error) {
     logger.error(error);
+  }
+};
+
+
+export const loginUser = async (req, res) => {
+  try {
+    const token = req.cookies.chatAppToken || req.headers.authorization;
+    if (!token) {
+      return res.status(401).json({ message: "User is not authenticated" });
+    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    if (!decoded) {
+      return res.status(401).json({ message: "User is not authenticated" });
+    }
+    const user = await User.findById(decoded.userId);
+    return res.status(200).json({ message: "User logged in successfully", user });
+  } catch (error) {
+    console.log(error);
   }
 };
 
