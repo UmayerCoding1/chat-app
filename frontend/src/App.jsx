@@ -4,11 +4,12 @@ import HomePage from './components/HomePage';
 import Signup from './components/Signup';
 import SignIn from './components/SignIn';
 import { Toaster } from 'sonner';
+import PrivetRoute from './routes/PrivetRoute';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />
+    element: <PrivetRoute><HomePage /></PrivetRoute>
   },
   {
     path: '/signup',

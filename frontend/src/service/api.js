@@ -17,5 +17,14 @@ const POSTAPI = async (url, body) => {
     }
 };
 
+const GETAPI = async (url) => {
+    try {
+        const response = await baseURL.get(url);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
 
-export { POSTAPI };
+
+export { POSTAPI , GETAPI };
