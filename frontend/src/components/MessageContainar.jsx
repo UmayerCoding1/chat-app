@@ -1,7 +1,9 @@
 import React from "react";
 import SendInput from "./SendInput";
 import Messages from "./Messages";
+import { useSelector } from "react-redux";
 const MessageContainar = () => {
+  const {selectedUser} = useSelector((state) => state.authR);
   return (
     <div className="md:min-w-[450px] flex flex-col">
       <div className="flex items-center gap-2 cursor-pointer p-2 rounded-lg bg-black/50">
@@ -9,7 +11,7 @@ const MessageContainar = () => {
           <div className="avatar avatar-online">
             <div className="w-10 rounded-full">
               <img
-                src="https://avatar.iran.liara.run/public"
+                src={selectedUser?.avatar}
                 loading="lazy"
                 alt="avatar"
               />
@@ -18,7 +20,7 @@ const MessageContainar = () => {
         </div>
 
         <div>
-          <p className="text-white">Umayer Hossain</p>
+          <p className="text-white">{selectedUser?.fullname}</p>
         </div>
       </div>
 

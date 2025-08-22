@@ -29,7 +29,7 @@ export const sendMessage = async (req, res) => {
     await goyConversation.save();
 
     // socket io
-    return res.status(200).json({ message: "Message sent successfully" });
+    return res.status(200).json({ message: "Message sent successfully", newMessage });
   } catch (error) {
     console.log("Send message error: ", error);
   }
@@ -44,7 +44,9 @@ export const getMessage = async (req, res) => {
       paticipants: { $all: [senderId, receiverId] },
     }).populate('messages');
     
-
+    if (!conversation) {
+      return res.status(404).json({ message: "Conversation not found" });
+    }
     
     
     return res.status(200).json({ messages: conversation?.messages });
