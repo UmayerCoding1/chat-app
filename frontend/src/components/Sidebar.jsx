@@ -3,8 +3,10 @@ import OtherUsers from "./OtherUsers";
 import { GETAPI } from "../service/api";
 import {toast} from 'sonner'
 import { useDispatch } from "react-redux";
-import { logout } from "../redux/userSlice";
+import { logout, setOtherUsers } from "../redux/userSlice";
+import { useState } from "react";
 const Sidebar = () => {
+  const [search,setSearch] = useState('');
 const dispatch = useDispatch();
     const handleLogout = async () => {
         try {
@@ -23,23 +25,37 @@ const dispatch = useDispatch();
             console.log(error);
         }
     }
+
+
+    const handleSearch = async (searchValue) => {
+      setSearch(searchValue)
+        // e.preventDefault();
+       try {
+        const response = await GETAPI(`/auth?search=${searchValue}`);
+        if(response.users){
+          dispatch(setOtherUsers(response.users));
+        }
+       } catch (error) {
+        console.log(error);
+       }
+
+      
+    } 
+
   return (
     <div className="flex flex-col    border-r border-slate-500 p-4">
-      <form className="flex items-center gap-2">
+      <form  className="flex items-center gap-2">
         <input
           className="input input-bordered rounded-md w-60"
+          onChange={(e) => handleSearch(e.target.value)}
+          value={search}
           type="text"
           name=""
           id=""
           placeholder="Search . . . ."
         />
 
-        <button
-          type="submit"
-          className="bg-white py-2 px-5 cursor-pointer hover:bg-gray-200 rounded-2xl "
-        >
-          <Search size={20} />
-        </button>
+       
       </form>
       {/* <div className="divider px-2"></div> */}
       <hr className="border-white/50 my-3" />

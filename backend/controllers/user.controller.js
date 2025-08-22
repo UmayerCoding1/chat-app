@@ -119,7 +119,21 @@ export const loginUser = async (req, res) => {
 export const otherUser = async (req, res) => {
   try {
     const userId = req.userId;
-    const users = await User.find({ _id: { $ne: userId } }).select("-password");
+    const search = req.query.search;
+
+     const query = {
+      _id: { $ne: userId },
+    };
+
+    if (search) {
+      query.$or = [
+        { fullname: { $regex: search, $options: "i" } },  
+        
+       
+      ];
+    }
+
+    const users = await User.find(query).select("-password");
 
     return res.status(200).json({ users });
   } catch (error) {
